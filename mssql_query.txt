@@ -1,0 +1,48 @@
+CREATE TABLE Musteri (
+    MusteriTC CHAR(11) PRIMARY KEY,
+    MusteriAd NVARCHAR(50),
+    MusteriSoyad NVARCHAR(50),
+    MusteriCinsiyet NVARCHAR(10),
+    MusteriYas INT,
+    MusteriTel NVARCHAR(15),
+    MusteriAdres NVARCHAR(255)
+);
+CREATE TABLE OdaKayit (
+    OdaKayitID INT PRIMARY KEY IDENTITY(1,1),
+    MusteriTC CHAR(11),
+    GirisTarihi DATE,
+    CikisTarihi DATE,
+    YemekDahil BIT,
+    ToplamTutar FLOAT,
+    FOREIGN KEY (MusteriTC) REFERENCES Musteri(MusteriTC)
+);
+CREATE TABLE OdaDurum (
+    OdaNumarasi INT PRIMARY KEY,
+    DolulukDurumu BIT
+);
+CREATE TABLE OdaBosalt (
+    OdaBosaltID INT PRIMARY KEY IDENTITY(1,1),
+    MusteriTC CHAR(11),
+    CikisTarihi DATE,
+    OdenenTutar FLOAT,
+    FOREIGN KEY (MusteriTC) REFERENCES Musteri(MusteriTC)
+);
+CREATE TABLE MusteriHareket (
+    HareketID INT PRIMARY KEY IDENTITY(1,1),
+    MusteriTC CHAR(11),
+    GirisTarihi DATE,
+    CikisTarihi DATE,
+    OdaNumarasi INT,
+    FOREIGN KEY (MusteriTC) REFERENCES Musteri(MusteriTC)
+);
+CREATE TABLE Mesajlar (
+    MesajID INT PRIMARY KEY IDENTITY(1,1),
+    MusteriTC CHAR(11),
+    Mesaj NVARCHAR(500),
+    Tarih DATE,
+    FOREIGN KEY (MusteriTC) REFERENCES Musteri(MusteriTC)
+);
+CREATE TABLE Kullanicilar (
+    KullaniciAdi NVARCHAR(50) NOT NULL PRIMARY KEY,
+    Parola NVARCHAR(50) NOT NULL
+);
